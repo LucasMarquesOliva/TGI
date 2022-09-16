@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="4dp"
+    tools:context=".ui.personaldataform.PersonalDataFormActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/contact_block_background"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_edit_text_rounded"
+            android:hint="@string/hint_name"
+            android:inputType="text"
+            android:maxLength="36"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_name" />
+
+        <TextView
+            android:id="@+id/text_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/age"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_name" />
+
+        <EditText
+            android:id="@+id/edit_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_edit_text_rounded"
+            android:inputType="number"
+            android:maxLength="3"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_age" />
+
+        <TextView
+            android:id="@+id/text_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/sexo"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_age" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_gender">
+
+            <RadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                android:textColor="@color/black" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/text_pregnancies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/pregnancies"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/radio_group_gender"
+            app:layout_constraintTop_toBottomOf="@+id/edit_age" />
+
+        <EditText
+            android:id="@+id/edit_pregnancies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/custom_edit_text_rounded"
+            android:inputType="number"
+            android:maxLength="2"
+            android:padding="12dp"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/text_pregnancies"
+            app:layout_constraintTop_toBottomOf="@id/text_pregnancies" />
+
+        <TextView
+            android:id="@+id/text_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/weight"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_gender" />
+
+        <EditText
+            android:id="@+id/edit_weight"
+            style="@style/DefaultEditTextDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_weight" />
+
+        <TextView
+            android:id="@+id/text_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/height"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/text_weight"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_gender" />
+
+        <EditText
+            android:id="@+id/edit_height"
+            style="@style/DefaultEditTextDecimal"
+            app:layout_constraintStart_toStartOf="@+id/text_height"
+            app:layout_constraintTop_toBottomOf="@id/text_height" />
+
+        <TextView
+            android:id="@+id/text_bmi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/bmi"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/text_height"
+            app:layout_constraintTop_toBottomOf="@+id/radio_group_gender" />
+
+        <EditText
+            android:id="@+id/edit_bmi"
+            style="@style/DefaultEditTextDecimal"
+            android:enabled="false"
+            android:maxLength="12"
+            android:paddingStart="0dp"
+            app:layout_constraintStart_toStartOf="@+id/text_bmi"
+            app:layout_constraintTop_toBottomOf="@id/text_bmi" />
+
+        <TextView
+            android:id="@+id/text_glucose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/glucose"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_bmi" />
+
+        <EditText
+            android:id="@+id/edit_glucose"
+            style="@style/DefaultEditTextDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_glucose" />
+
+        <TextView
+            android:id="@+id/text_insulin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/insulin"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_glucose" />
+
+        <EditText
+            android:id="@+id/edit_insulin"
+            style="@style/DefaultEditTextDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_insulin" />
+
+        <TextView
+            android:id="@+id/text_blood_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/blood_pressure"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_insulin" />
+
+        <EditText
+            android:id="@+id/edit_blood_pressure"
+            style="@style/DefaultEditTextDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_blood_pressure" />
+
+        <TextView
+            android:id="@+id/text_skin_thickness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/skin_thickness"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_blood_pressure" />
+
+        <EditText
+            android:id="@+id/edit_skin_thickness"
+            style="@style/DefaultEditTextDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_skin_thickness" />
+
+        <TextView
+            android:id="@+id/text_diabetes_pedigree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/diabetes_pedigree"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_skin_thickness" />
+
+        <EditText
+            android:id="@+id/edit_diabetes_pedigree"
+            style="@style/DefaultEditTextDecimal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_diabetes_pedigree" />
+
+        <Button
+            android:id="@+id/button_save"
+            style="@style/DefaultSaveButton"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_diabetes_pedigree" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+    <!--
+name			 - String
+age				 - Int
+gender			 - Int
+weight			 - Double
+height			 - Double
+bmi				 - Double
+glucose			 - Double
+insulin			 - Double
+bloodPressure	 - Double
+skinThickness	 - Double
+diabetesPedigree - Double
+pregnancies		 - Int
+    -->
