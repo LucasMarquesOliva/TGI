@@ -46,4 +46,7 @@
     <string name="blood_pressure">Pressão Sanguínea</string>
     <string name="skin_thickness">Textura da Pele</string>
     <string name="diabetes_pedigree">Diabetes Pedigree</string>
+    <string name="fill_later">Preencher depois</string>
+    <string name="positive_test">De acordo com os dados informados, você tem tendência a ter ou tem diabtes.</string>
+    <string name="negative_test">De acordo com os dados informados, você não tem tendência a ter diabetes.</string>
 </resources>

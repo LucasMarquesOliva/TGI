@@ -14,6 +14,8 @@
         android:layout_marginTop="256dp"
         android:gravity="center"
         android:hint="@string/your_name"
+        android:inputType="text"
+        android:maxLength="36"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

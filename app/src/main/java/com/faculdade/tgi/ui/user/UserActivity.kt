@@ -11,6 +11,7 @@ import com.faculdade.tgi.databinding.ActivityUserBinding
 import com.faculdade.tgi.constants.Constants
 import com.faculdade.tgi.infra.SecurityPreferences
 import com.faculdade.tgi.ui.main.MainActivity
+import com.faculdade.tgi.ui.personaldataform.PersonalDataFormActivity
 
 class UserActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -39,6 +40,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun verifyUserName() {
         if (viewModel.checkUser()) {
+            SecurityPreferences(this).storeBoolean(Constants.KEY.FIRST_ACCESS, false)
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -48,7 +50,8 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         val name = binding.editName.text.toString()
         if (name != "") {
             viewModel.saveName(name)
-            startActivity(Intent(this, MainActivity::class.java))
+            SecurityPreferences(this).storeBoolean(Constants.KEY.FIRST_ACCESS, true)
+            startActivity(Intent(this, PersonalDataFormActivity::class.java))
             finish()
         } else {
             Toast.makeText(this, R.string.validation_user_name, Toast.LENGTH_SHORT).show()

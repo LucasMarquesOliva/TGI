@@ -18,4 +18,10 @@ class PredictionViewModel(application: Application) : AndroidViewModel(applicati
     fun loadData() {
         _loadData.value = repository.get()
     }
+
+    fun updateResult(outcome: Int) {
+        val person = repository.get()
+        person.outcome = outcome
+        repository.update(person)
+    }
 }

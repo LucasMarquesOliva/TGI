@@ -14,4 +14,12 @@ class SecurityPreferences(context: Context) {
     fun getString(key: String): String {
         return security.getString(key, "") ?: ""
     }
+
+    fun storeBoolean(key: String, bool: Boolean) {
+        security.edit().putBoolean(key, bool).apply()
+    }
+
+    fun getBoolean(key: String): Boolean {
+        return security.getBoolean(key, false)
+    }
 }

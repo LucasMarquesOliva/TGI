@@ -3,7 +3,8 @@ package com.faculdade.tgi.constants
 class Constants private constructor() {
 
     object KEY {
-       const val USER_NAME = "USER_NAME"
+        const val USER_NAME = "USER_NAME"
+        const val FIRST_ACCESS = "FIRST_ACCESS"
     }
 
     object DATABASE {

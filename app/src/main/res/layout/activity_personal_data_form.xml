@@ -292,6 +292,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_diabetes_pedigree" />
 
+        <Button
+            android:id="@+id/button_later"
+            style="@style/DefaultSaveButton"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/light_gray"
+            android:text="@string/fill_later"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_save" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

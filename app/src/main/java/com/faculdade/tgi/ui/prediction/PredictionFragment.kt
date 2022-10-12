@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.faculdade.tgi.R
 import com.faculdade.tgi.databinding.FragmentPredictionBinding
-import com.faculdade.tgi.ui.contactsform.ContactFormActivity
 import com.faculdade.tgi.ui.personaldataform.PersonalDataFormActivity
 
 class PredictionFragment : Fragment(), View.OnClickListener {
@@ -35,6 +36,8 @@ class PredictionFragment : Fragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
+        binding.linearResult.visibility = View.INVISIBLE
+        binding.progressResult.visibility = View.GONE
         viewModel.loadData()
     }
 
@@ -55,7 +58,57 @@ class PredictionFragment : Fragment(), View.OnClickListener {
     }
 
     private fun handleTest() {
+        Thread {
+            //Mostra carregamento
+            activity?.runOnUiThread {
+                binding.progressResult.visibility = View.VISIBLE
+            }
 
+            //Pega os valores da tela
+            val age = binding.textAge.text.toString().toInt()
+            val bmi = binding.textBmi.text.toString().toDouble()
+            val glucose = binding.textGlucose.text.toString().toDouble()
+            val insulin = binding.textInsulin.text.toString().toDouble()
+            val bloodPressure = binding.textBloodPressure.text.toString().toDouble()
+            val skinThickness = binding.textSkinThickness.text.toString().toDouble()
+            val diabetesPedigree = binding.textDiabetesPedigree.text.toString().toDouble()
+            val pregnancies = binding.textPregnancies.text.toString().toInt()
+
+            //Instancia o python e chama o método de predição
+            if (!Python.isStarted()) {
+                Python.start(AndroidPlatform(context!!))
+            }
+            val python = Python.getInstance()
+            val pythonFile = python.getModule("prediction")
+            val result =
+                pythonFile.callAttr(
+                    "predict",
+                    pregnancies,
+                    glucose,
+                    bloodPressure,
+                    skinThickness,
+                    insulin,
+                    bmi,
+                    diabetesPedigree,
+                    age
+                ).toString().toInt()
+
+            //Atualiza a tela com o resultado
+            activity?.runOnUiThread {
+                if (result == 1) {
+                    binding.imageResult.setImageResource(R.drawable.ic_dissatisfied)
+                    binding.textResult.text = resources.getString(R.string.positive_test)
+                } else {
+                    binding.imageResult.setImageResource(R.drawable.ic_satisfied)
+                    binding.textResult.text = resources.getString(R.string.negative_test)
+                }
+                binding.linearResult.visibility = View.VISIBLE
+                binding.progressResult.visibility = View.GONE
+            }
+
+            //Atualiza o banco de dados com o resultado
+            viewModel.updateResult(result)
+        }.start()
     }
 
     private fun observe() {
@@ -69,6 +122,7 @@ class PredictionFragment : Fragment(), View.OnClickListener {
             binding.textDiabetesPedigree.text = it.diabetesPedigree.toString()
             binding.textPregnancies.text = it.pregnancies.toString()
 
+            //Exibe a quantidade de vezes que engravidou apenas se for do sexo feminino
             if (it.gender.toString().toInt() == 0) {
                 binding.viewPregnancies.isVisible = false
                 binding.linearPregnancies.isVisible = false

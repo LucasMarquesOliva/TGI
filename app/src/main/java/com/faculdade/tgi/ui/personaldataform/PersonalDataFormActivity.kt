@@ -1,5 +1,6 @@
 package com.faculdade.tgi.ui.personaldataform
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,15 +17,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.faculdade.tgi.R
+import com.faculdade.tgi.constants.Constants
 import com.faculdade.tgi.databinding.ActivityPersonalDataFormBinding
+import com.faculdade.tgi.infra.SecurityPreferences
 import com.faculdade.tgi.model.PersonalDataModel
+import com.faculdade.tgi.ui.main.MainActivity
 import com.faculdade.tgi.validations.DecimalDigitsInputFilter
 import java.util.regex.PatternSyntaxException
 
-class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener,
+    CompoundButton.OnCheckedChangeListener {
 
     private lateinit var binding: ActivityPersonalDataFormBinding
     private lateinit var viewModel: PersonalDataFormViewModel
+    private var isFirstAccess: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +41,7 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener, Comp
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.buttonSave.setOnClickListener(this)
+        binding.buttonLater.setOnClickListener(this)
         binding.radioFemale.setOnCheckedChangeListener(this)
 
         //Controla a quantidade de dígitos dos campos Double
@@ -44,32 +51,45 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener, Comp
         binding.editInsulin.inputFilterDecimal(5, 1)
         binding.editBloodPressure.inputFilterDecimal(5, 1)
         binding.editSkinThickness.inputFilterDecimal(5, 1)
-        binding.editDiabetesPedigree.inputFilterDecimal(5, 1)
+        binding.editDiabetesPedigree.inputFilterDecimal(6, 3)
 
         observe()
+        checkFirstAccess()
         loadData()
         setBMICalculatorListener()
     }
 
     override fun onClick(v: View) {
-        if (v.id == R.id.button_save) {
-            val model = PersonalDataModel().apply {
-                this.id = 1
-                this.name = binding.editName.text.toString()
-                this.age = binding.editAge.text.toString().toInt()
-                this.gender = if (binding.radioMale.isChecked) 0 else 1
-                this.weight = binding.editWeight.text.toString().toDouble()
-                this.height = binding.editHeight.text.toString().toDouble()
-                this.bmi = binding.editBmi.text.toString().toDouble()
-                this.glucose = binding.editGlucose.text.toString().toDouble()
-                this.insulin = binding.editInsulin.text.toString().toDouble()
-                this.bloodPressure = binding.editBloodPressure.text.toString().toDouble()
-                this.skinThickness = binding.editSkinThickness.text.toString().toDouble()
-                this.diabetesPedigree = binding.editDiabetesPedigree.text.toString().toDouble()
-                this.pregnancies = if (binding.radioFemale.isChecked) binding.editPregnancies.text.toString().toInt() else 0
+        when (v.id) {
+            R.id.button_save -> {
+                val model = PersonalDataModel().apply {
+                    this.id = 1
+                    this.name = binding.editName.text.toString()
+                    this.age = binding.editAge.text.toString().toInt()
+                    this.gender = if (binding.radioMale.isChecked) 0 else 1
+                    this.weight = binding.editWeight.text.toString().toDouble()
+                    this.height = binding.editHeight.text.toString().toDouble()
+                    this.bmi = binding.editBmi.text.toString().toDouble()
+                    this.glucose = binding.editGlucose.text.toString().toDouble()
+                    this.insulin = binding.editInsulin.text.toString().toDouble()
+                    this.bloodPressure = binding.editBloodPressure.text.toString().toDouble()
+                    this.skinThickness = binding.editSkinThickness.text.toString().toDouble()
+                    this.diabetesPedigree = binding.editDiabetesPedigree.text.toString().toDouble()
+                    this.pregnancies = if (binding.radioFemale.isChecked) binding.editPregnancies.text.toString().toInt() else 0
+                }
+                viewModel.save(model)
+
+                if (this.isFirstAccess) {
+                    SecurityPreferences(this).storeBoolean(Constants.KEY.FIRST_ACCESS, false)
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+                finish()
             }
-            viewModel.save(model)
-            finish()
+            R.id.button_later -> {
+                SecurityPreferences(this).storeBoolean(Constants.KEY.FIRST_ACCESS, false)
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         }
     }
 
@@ -110,14 +130,24 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener, Comp
         })
     }
 
+    private fun checkFirstAccess() {
+        isFirstAccess = SecurityPreferences(this).getBoolean(Constants.KEY.FIRST_ACCESS)
+        binding.buttonLater.isVisible = isFirstAccess
+    }
+
     private fun loadData() {
         viewModel.loadData()
     }
 
     private fun EditText.inputFilterDecimal(maxDigitsIncludingPoint: Int, maxDecimalPlaces: Int) {
         try {
-            filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(maxDigitsIncludingPoint, maxDecimalPlaces))
-        } catch (e: PatternSyntaxException){
+            filters = arrayOf<InputFilter>(
+                DecimalDigitsInputFilter(
+                    maxDigitsIncludingPoint,
+                    maxDecimalPlaces
+                )
+            )
+        } catch (e: PatternSyntaxException) {
             isEnabled = false
             hint = e.message
         }
@@ -125,8 +155,8 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener, Comp
 
     private fun setBMICalculatorListener() {
         binding.editWeight.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) = try {
                 var height = binding.editHeight.text.toString().toDouble()
                 var weight = s.toString().toDouble()
@@ -141,8 +171,8 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener, Comp
             }
         })
         binding.editHeight.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) = try {
                 var height = s.toString().toDouble()
                 var weight = binding.editWeight.text.toString().toDouble()
