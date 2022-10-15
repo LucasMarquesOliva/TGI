@@ -271,7 +271,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="5dp"
         android:backgroundTint="@color/teal_700"
-        android:text="Editar Dados"
+        android:text="@string/edit_data"
         app:layout_constraintEnd_toStartOf="@+id/button_test"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linear_data" />
@@ -283,7 +283,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:backgroundTint="@color/teal_700"
-        android:text="Realizar Teste"
+        android:text="@string/do_test"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_edit"
         app:layout_constraintTop_toBottomOf="@+id/linear_data"
