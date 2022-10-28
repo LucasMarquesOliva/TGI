@@ -119,8 +119,14 @@ class PredictionFragment : Fragment(), View.OnClickListener {
             binding.textInsulin.text = it.insulin.toString()
             binding.textBloodPressure.text = it.bloodPressure.toString()
             binding.textSkinThickness.text = it.skinThickness.toString()
-            binding.textDiabetesPedigree.text = it.diabetesPedigree.toString()
             binding.textPregnancies.text = it.pregnancies.toString()
+
+            //Exibe a descrição do histórico familiar, de acordo com o ID da lista
+            binding.textFamilyHistory.text = resources.getStringArray(R.array.values_family_history)[it.familyHistory]
+
+            //Armazena o valor do "Diabetes Pedigree" no campo de tela invisível, apenas para usá-lo posteriormente
+            //Pois neste ponto, é mais fácil definir o valor de acordo com o ID da tabela
+            binding.textDiabetesPedigree.text = viewModel.getDiabetesPedigreeValueById(it.familyHistory).toString()
 
             //Exibe a quantidade de vezes que engravidou apenas se for do sexo feminino
             if (it.gender.toString().toInt() == 0) {

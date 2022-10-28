@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TGI</string>
+    <string name="app_name">TGI Diabetes</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -43,7 +43,7 @@
     <string name="bmi">IMC</string>
     <string name="glucose">Glicose*</string>
     <string name="insulin">Insulina*</string>
-    <string name="blood_pressure">Pressão Sanguínea*</string>
+    <string name="blood_pressure">Pressão Diastólica*</string>
     <string name="skin_thickness">Textura da Pele*</string>
     <string name="diabetes_pedigree">Diabetes Pedigree*</string>
     <string name="fill_later">Preencher depois</string>
@@ -51,4 +51,15 @@
     <string name="negative_test">De acordo com os dados informados, você não tem tendência a ter diabetes.</string>
     <string name="edit_data">Editar Dados</string>
     <string name="do_test">Realizar Teste</string>
+    <string name="family_history">Histórico familiar*</string>
+
+    <string-array name="values_family_history">
+        <item>Sem histórico familiar</item>
+        <item>Mãe possui diabetes tipo 1</item>
+        <item>Um dos irmãos possui diabetes tipo 1</item>
+        <item>Pai possui diabetes tipo 1</item>
+        <item>Ambos os pais possuem diabetes tipo 1</item>
+        <item>Irmão gêmeo identico possui diabetes tipo 1</item>
+        <item>Algum parente próximo possui diabetes tipo 2</item>
+    </string-array>
 </resources>

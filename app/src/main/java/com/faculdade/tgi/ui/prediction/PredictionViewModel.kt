@@ -24,4 +24,17 @@ class PredictionViewModel(application: Application) : AndroidViewModel(applicati
         person.outcome = outcome
         repository.update(person)
     }
+
+    fun getDiabetesPedigreeValueById(id: Int): Double {
+        return when(id) {
+            0 -> 0.004
+            1 -> 0.04
+            2 -> 0.06
+            3 -> 0.06
+            4 -> 0.3
+            5 -> 0.3
+            6 -> 0.75
+            else -> 0.00
+        }
+    }
 }

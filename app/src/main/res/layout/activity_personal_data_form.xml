@@ -268,16 +268,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/diabetes_pedigree"
+            android:text="@string/family_history"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_skin_thickness" />
 
-        <EditText
-            android:id="@+id/edit_diabetes_pedigree"
-            style="@style/DefaultEditTextDecimal"
+        <Spinner
+            android:id="@+id/spinner_family_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_diabetes_pedigree" />
 
@@ -290,7 +292,7 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_diabetes_pedigree" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner_family_history" />
 
         <Button
             android:id="@+id/button_later"
@@ -308,18 +310,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
-
-    <!--
-name			 - String
-age				 - Int
-gender			 - Int
-weight			 - Double
-height			 - Double
-bmi				 - Double
-glucose			 - Double
-insulin			 - Double
-bloodPressure	 - Double
-skinThickness	 - Double
-diabetesPedigree - Double
-pregnancies		 - Int
-    -->

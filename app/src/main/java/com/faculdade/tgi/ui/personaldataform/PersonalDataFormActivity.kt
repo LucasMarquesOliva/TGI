@@ -9,6 +9,8 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
+import android.widget.Adapter
+import android.widget.ArrayAdapter
 import android.widget.CompoundButton
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +53,7 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener,
         binding.editInsulin.inputFilterDecimal(5, 1)
         binding.editBloodPressure.inputFilterDecimal(5, 1)
         binding.editSkinThickness.inputFilterDecimal(5, 1)
-        binding.editDiabetesPedigree.inputFilterDecimal(6, 3)
+        //binding.editDiabetesPedigree.inputFilterDecimal(6, 3)
 
         observe()
         checkFirstAccess()
@@ -74,7 +76,7 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener,
                     this.insulin = binding.editInsulin.text.toString().toDouble()
                     this.bloodPressure = binding.editBloodPressure.text.toString().toDouble()
                     this.skinThickness = binding.editSkinThickness.text.toString().toDouble()
-                    this.diabetesPedigree = binding.editDiabetesPedigree.text.toString().toDouble()
+                    this.familyHistory = binding.spinnerFamilyHistory.selectedItemId.toInt()
                     this.pregnancies = if (binding.radioFemale.isChecked) binding.editPregnancies.text.toString().toInt() else 0
                 }
                 viewModel.save(model)
@@ -125,7 +127,7 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener,
             binding.editInsulin.setText(it.insulin.toString())
             binding.editBloodPressure.setText(it.bloodPressure.toString())
             binding.editSkinThickness.setText(it.skinThickness.toString())
-            binding.editDiabetesPedigree.setText(it.diabetesPedigree.toString())
+            binding.spinnerFamilyHistory.setSelection(it.familyHistory)
             binding.editPregnancies.setText(it.pregnancies.toString())
         })
     }
@@ -137,6 +139,11 @@ class PersonalDataFormActivity : AppCompatActivity(), View.OnClickListener,
 
     private fun loadData() {
         viewModel.loadData()
+
+        //Layout e valores do spinner de Histórico Familiar
+        val spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.values_family_history, R.layout.spinner_list)
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        binding.spinnerFamilyHistory.adapter = spinnerAdapter
     }
 
     private fun EditText.inputFilterDecimal(maxDigitsIncludingPoint: Int, maxDecimalPlaces: Int) {

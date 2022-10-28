@@ -12,7 +12,7 @@ import com.faculdade.tgi.model.PersonalDataModel
 import com.faculdade.tgi.repository.contact.ContactDAO
 import com.faculdade.tgi.repository.personaldata.PersonalDataDAO
 
-@Database(entities = [ContactModel::class, PersonalDataModel::class], version = 1)
+@Database(entities = [ContactModel::class, PersonalDataModel::class], version = 2)
 abstract class ProjectDataBase : RoomDatabase() {
 
     abstract fun contactDAO(): ContactDAO

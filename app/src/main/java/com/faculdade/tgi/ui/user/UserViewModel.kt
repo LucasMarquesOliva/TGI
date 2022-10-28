@@ -11,11 +11,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application)  {
 
     fun checkUser(): Boolean {
         //Verifica se já existe o usuário na tabela
-        val teste = repository.get()
-        val teste2 = repository.get() != null
-        val teste3 = repository.get() == null
-
-
         return repository.get() != null
     }
 

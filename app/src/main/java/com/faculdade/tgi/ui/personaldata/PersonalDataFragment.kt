@@ -58,8 +58,10 @@ class PersonalDataFragment : Fragment(), View.OnClickListener {
             binding.textInsulin.text = it.insulin.toString()
             binding.textBloodPressure.text = it.bloodPressure.toString()
             binding.textSkinThickness.text = it.skinThickness.toString()
-            binding.textDiabetesPedigree.text = it.diabetesPedigree.toString()
             binding.textPregnancies.text = it.pregnancies.toString()
+
+            //Busca o valor do Sppiner com as opções de histórico familiar pelo ID salvo
+            binding.textDiabetesPedigree.text = resources.getStringArray(R.array.values_family_history)[it.familyHistory]
 
             //Exibe a quantidade de vezes que engravidou apenas se for do sexo feminino
             if (it.gender.toString().toInt() == 0) {

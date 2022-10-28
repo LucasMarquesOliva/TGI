@@ -43,7 +43,7 @@ class Constants private constructor() {
             const val INSULIN = "insulin"
             const val BLOOD_PRESSURE = "bloodpressure"
             const val SKIN_THICKNESS = "skinthickness"
-            const val DIABETES_PEDIGREE = "diabetespedigree"
+            const val FAMILY_HISTORY = "familyhistory"
             const val PREGNANCIES = "pregnancies"
             const val OUTCOME = "outcome"
         }

@@ -42,8 +42,8 @@ class PersonalDataModel {
     @ColumnInfo(name = Constants.PERSONAL_DATA.COLUMNS.SKIN_THICKNESS)
     var skinThickness: Double = 0.0
 
-    @ColumnInfo(name = Constants.PERSONAL_DATA.COLUMNS.DIABETES_PEDIGREE)
-    var diabetesPedigree: Double = 0.0
+    @ColumnInfo(name = Constants.PERSONAL_DATA.COLUMNS.FAMILY_HISTORY)
+    var familyHistory: Int = 0
 
     @ColumnInfo(name = Constants.PERSONAL_DATA.COLUMNS.PREGNANCIES)
     var pregnancies: Int = 0
