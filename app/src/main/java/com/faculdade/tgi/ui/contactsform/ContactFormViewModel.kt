@@ -34,10 +34,12 @@ class ContactFormViewModel(application: Application) : AndroidViewModel(applicat
         _contact.value = repository.get(id)
     }
 
-    fun checkData(name: String, cel: String): String {
-        return if (name == "" || cel == "") {
+    fun checkData(name: String, ddd: String, cel: String): String {
+        return if (name == "" || ddd == "" || cel == "") {
             "Preencher campos obrigatórios"
-        } else if (cel.length < 11) {
+        } else if (ddd.length < 2) {
+            "Preencher DDD corretamente"
+        } else if (cel.length < 9) {
             "Preencher celular corretamente"
         } else {
             ""

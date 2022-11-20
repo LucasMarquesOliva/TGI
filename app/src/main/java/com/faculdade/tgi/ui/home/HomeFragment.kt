@@ -116,7 +116,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         //Se não houve nenhuma mensagem de retorno, não houve ação
         if (actionSMS == "" && actionLocalization == "") {
-            Toast.makeText(context, "Não há ações a tomar", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Não há ações a tomar para este contato", Toast.LENGTH_SHORT).show()
         }
     }
 

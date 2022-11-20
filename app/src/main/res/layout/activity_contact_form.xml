@@ -53,18 +53,34 @@
             app:layout_constraintTop_toBottomOf="@id/edit_name" />
 
         <EditText
-            android:id="@+id/edit_cell"
+            android:id="@+id/edit_ddd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/custom_edit_text_rounded"
-            android:hint="@string/hint_cell"
-            android:inputType="phone"
-            android:maxLength="11"
+            android:hint="@string/hint_ddd"
+            android:inputType="number"
+            android:maxLength="2"
             android:padding="12dp"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_cell" />
+
+        <EditText
+            android:id="@+id/edit_cell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/custom_edit_text_rounded"
+            android:hint="@string/hint_cell"
+            android:inputType="number"
+            android:maxLength="9"
+            android:padding="12dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/edit_ddd"
             app:layout_constraintTop_toBottomOf="@id/text_cell" />
 
         <Switch

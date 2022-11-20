@@ -42,12 +42,12 @@ class ContactFormActivity : AppCompatActivity(), View.OnClickListener, CompoundB
 
     override fun onClick(v: View) {
         if (v.id == R.id.button_save) {
-            val errorText = viewModel.checkData(binding.editName.text.toString(), binding.editCell.text.toString())
+            val errorText = viewModel.checkData(binding.editName.text.toString(), binding.editDdd.text.toString(), binding.editCell.text.toString())
             if (errorText == "") {
                 val model = ContactModel().apply {
                     this.id = contactId
                     this.name = binding.editName.text.toString()
-                    this.cell = binding.editCell.text.toString()
+                    this.cell = binding.editDdd.text.toString() + binding.editCell.text.toString()
                     this.main = binding.switchMain.isChecked
                     this.active = true
                     this.localization = binding.switchLocalization.isChecked
@@ -73,9 +73,12 @@ class ContactFormActivity : AppCompatActivity(), View.OnClickListener, CompoundB
 
     override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
         if (buttonView.id == R.id.switch_message) {
+            //Solicita permissão para SMS
             checkPermissions(Constants.PERMISSION.SMS)
+            //Exibe a caixa de mensagem opicional
             binding.editMessageText.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
         } else if (buttonView.id == R.id.switch_localization) {
+            //Solicita permissão para GPS
             checkPermissions(Constants.PERMISSION.GPS)
         }
     }
@@ -83,7 +86,8 @@ class ContactFormActivity : AppCompatActivity(), View.OnClickListener, CompoundB
     private fun observe() {
         viewModel.contact.observe(this, Observer {
             binding.editName.setText(it.name)
-            binding.editCell.setText(it.cell)
+            binding.editDdd.setText(it.cell.substring(0, 2))
+            binding.editCell.setText(it.cell.substring(2))
             binding.switchMain.isChecked = it.main
             binding.switchLocalization.isChecked = it.localization
             binding.switchMessage.isChecked = it.message
